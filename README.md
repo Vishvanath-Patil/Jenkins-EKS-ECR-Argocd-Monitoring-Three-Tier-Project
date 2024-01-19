@@ -127,52 +127,111 @@ We will install a sonar scanner in the tools.
 
 Create a Jenkins webhook
 
-1. **Configure CI/CD Pipeline in Jenkins:**
+1. **Configure CI/CD Pipeline in Jenkins for frontend:**
 - Create a CI/CD pipeline in Jenkins to automate your application deployment.
 
 ```groovy
-pipeline {
+pipeline{
     agent any
-    tools {
+    tools{
         jdk 'jdk17'
-        nodejs 'node16'
+        nodejs 'node14'
     }
     environment {
-        SCANNER_HOME = tool 'sonar-scanner'
+        SCANNER_HOME=tool 'sonar-scanner'
     }
     stages {
-        stage('clean workspace') {
-            steps {
+        stage('clean workspace'){
+            steps{
                 cleanWs()
             }
         }
-        stage('Checkout from Git') {
-            steps {
+        stage('Checkout from Git'){
+            steps{
                 git branch: 'main', url: 'https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project.git'
             }
         }
-        stage("Sonarqube Analysis") {
-            steps {
+        stage("Sonarqube Analysis "){
+            steps{
                 withSonarQubeEnv('sonar-server') {
-                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
-                    -Dsonar.projectKey=Netflix'''
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
+                    -Dsonar.projectKey=Netflix '''
                 }
             }
         }
-        stage("quality gate") {
-            steps {
+        stage("quality gate"){
+           steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token'
+                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token' 
                 }
-            }
+            } 
         }
         stage('Install Dependencies') {
             steps {
                 sh "npm install"
             }
         }
+        stage('OWASP FS SCAN') {
+            steps {
+                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
+        stage('TRIVY FS SCAN') {
+            steps {
+                sh "trivy fs . > trivyfs.txt"
+            }
+        }
+        stage("Docker Build & Push to ECR") {
+    steps {
+        script {
+            // Retrieve authentication token and authenticate Docker client to ECR
+            withCredentials([usernamePassword(credentialsId: 'aws-ecr-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                def ecrLogin = sh(script: "aws ecr-public get-login-password --region us-east-1", returnStatus: true).trim()
+                if (ecrLogin == 0) {
+                    sh "echo \${AWS_SECRET_ACCESS_KEY} | docker login --username AWS --password-stdin public.ecr.aws/i5k2v6g1"
+                } else {
+                    error "Failed to authenticate Docker client to ECR"
+                }
+            }
+
+            // Build Docker image
+            sh "docker build -t workshop/three-tier-backend ."
+
+            // Tag Docker image
+            sh "docker tag workshop/three-tier-backend:latest public.ecr.aws/i5k2v6g1/workshop/three-tier-backend:latest"
+
+            // Push Docker image to ECR
+            sh "docker push public.ecr.aws/i5k2v6g1/workshop/three-tier-backend:latest"
+        }
     }
 }
+
+        stage("TRIVY"){
+            steps{
+                sh "trivy image vishwa3877/netflix:latest > trivyimage.txt" 
+            }
+        }
+        stage('Deploy to EKS Cluster') {
+    steps {
+        script {
+            // Set the Kubernetes cluster context
+            sh "kubectl config use-context nsws-prod-cluster"
+
+            // Set the Kubernetes namespace
+            sh "kubectl create namespace prod --dry-run=client -o yaml | kubectl apply -f -"
+
+            // Deploy the application to the EKS cluster
+            sh "kubectl apply -f path/to/kubernetes/deployment.yaml -n prod"
+
+            // Wait for the deployment to be ready
+            sh "kubectl rollout status deployment/workshop-three-tier-frontend -n prod"
+              }
+            }
+          }
+        }
+     }
+  }
 ```
 
 Certainly, here are the instructions without step numbers:
