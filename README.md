@@ -206,6 +206,26 @@ Certainly, here are the instructions without step numbers:
   - Amazon EKS
 - Click on the "Install without restart" button to install these plugins.
 
+**Add ECR credentials for your AWS credentials using the following steps:**
+- Open the Jenkins web interface.
+
+- Navigate to "Manage Jenkins" > "Manage Credentials."
+
+- In the Credentials page, click on "(global)" or a specific domain where you want to store your AWS credentials.
+
+- Click on "Add Credentials" on the left side.
+
+- Choose the kind of credentials to add. In this case, select "Secret text" for AWS Access Key ID and Secret Access Key.
+
+Fill in the necessary information:
+
+- Secret: Your AWS Access Key ID or Secret Access Key.
+  ID: Provide a unique ID for these credentials. This ID will be used in your Jenkins pipeline script.
+  Description: Optionally, provide a description for better identification.
+  Click on "OK" to save the credentials.
+
+- Now, you can use the ID you provided in the credentialsId field in your Jenkins pipeline script. For example, if you set the ID to aws-ecr-credentials, your pipeline
+
 **Add DockerHub Credentials:**
 
 - To securely handle DockerHub credentials in your Jenkins pipeline, follow these steps:
