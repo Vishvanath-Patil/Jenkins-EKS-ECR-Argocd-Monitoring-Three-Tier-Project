@@ -275,7 +275,7 @@ pipeline{
 
         stage("TRIVY"){
             steps{
-                sh "trivy image vishwa3877/netflix:latest > trivyimage.txt" 
+                sh "push public.ecr.aws/i5k2v6g1/workshop/three-tier-backend:latest > trivyimage.txt" 
             }
         }
         stage('Deploy to EKS Cluster') {
