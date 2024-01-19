@@ -145,7 +145,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/Vishvanath-Patil/DevSecOps-And-Monitoring-Project.git'
+                git branch: 'main', url: 'https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project.git'
             }
         }
         stage("Sonarqube Analysis") {
@@ -235,7 +235,7 @@ pipeline{
         }
         stage('Checkout from Git'){
             steps{
-                git branch: 'main', url: 'https://github.com/Vishvanath-Patil/DevSecOps-And-Monitoring-Project.git'
+                git branch: 'main', url: 'https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project.git'
             }
         }
         stage("Sonarqube Analysis "){
