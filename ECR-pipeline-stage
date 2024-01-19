@@ -1,0 +1,63 @@
+stage("Docker Build & Push to ECR") {
+    steps {
+        script {
+            // Retrieve authentication token and authenticate Docker client to ECR
+            withCredentials([usernamePassword(credentialsId: 'aws-ecr-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                def ecrLogin = sh(script: "aws ecr-public get-login-password --region us-east-1", returnStatus: true).trim()
+                if (ecrLogin == 0) {
+                    sh "echo \${AWS_SECRET_ACCESS_KEY} | docker login --username AWS --password-stdin public.ecr.aws/i5k2v6g1"
+                } else {
+                    error "Failed to authenticate Docker client to ECR"
+                }
+            }
+
+            // Build Docker image
+            sh "docker build -t workshop/three-tier-backend ."
+
+            // Tag Docker image
+            sh "docker tag workshop/three-tier-backend:latest public.ecr.aws/i5k2v6g1/workshop/three-tier-backend:latest"
+
+            // Push Docker image to ECR
+            sh "docker push public.ecr.aws/i5k2v6g1/workshop/three-tier-backend:latest"
+        }
+    }
+}
+
+Explanation:
+
+##Retrieve authentication token and authenticate Docker client to ECR:
+
+The withCredentials block is used to securely pass AWS credentials (Access Key ID and Secret Access Key) to the script. The credentialsId should be set to the ID of the Jenkins credential storing the AWS credentials.
+The AWS CLI command aws ecr-public get-login-password --region us-east-1 is executed to obtain an authentication token for the Docker client.
+The sh command then logs in to the ECR registry using the obtained token.
+Build Docker image:
+
+The docker build command is used to build a Docker image. The -t flag allows you to specify a name and optionally a tag in the 'name:tag' format for the image. In this case, it's named workshop/three-tier-backend with the latest tag.
+Tag Docker image:
+
+The docker tag command is used to assign a new tag to the Docker image. This is necessary before pushing it to ECR. In this case, the image is tagged as public.ecr.aws/i5k2v6g1/workshop/three-tier-backend:latest.
+Push Docker image to ECR:
+
+The docker push command is used to push the Docker image to the specified ECR repository. In this case, it's pushing the image to public.ecr.aws/i5k2v6g1/workshop/three-tier-backend:latest.
+Make sure to replace aws-ecr-credentials with the actual ID of your Jenkins credentials storing AWS credentials. Also, ensure that the Docker image names and ECR registry information are correct for your setup.
+
+##You can create Jenkins credentials for your AWS credentials using the following steps:
+
+Open the Jenkins web interface.
+
+Navigate to "Manage Jenkins" > "Manage Credentials."
+
+In the Credentials page, click on "(global)" or a specific domain where you want to store your AWS credentials.
+
+Click on "Add Credentials" on the left side.
+
+Choose the kind of credentials to add. In this case, select "Secret text" for AWS Access Key ID and Secret Access Key.
+
+Fill in the necessary information:
+
+Secret: Your AWS Access Key ID or Secret Access Key.
+ID: Provide a unique ID for these credentials. This ID will be used in your Jenkins pipeline script.
+Description: Optionally, provide a description for better identification.
+Click on "OK" to save the credentials.
+
+Now, you can use the ID you provided in the credentialsId field in your Jenkins pipeline script. For example, if you set the ID to aws-ecr-credentials, your pipeline 
