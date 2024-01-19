@@ -53,6 +53,11 @@
     sudo usermod -aG docker $USER  # Replace with your system's username, e.g., 'ubuntu'
     newgrp docker
     sudo chmod 777 /var/run/docker.sock
+    
+    ## To avoid docker login failed error
+    sudo su -
+    sudo usermod -aG docker jenkins
+    sudo systemctl restart jenkins
     ```
     
 **Phase 2: Security**
@@ -314,13 +319,6 @@ pipeline{
         }
     }
 }
-
-
-If you get docker login failed errorr
-
-sudo su
-sudo usermod -aG docker jenkins
-sudo systemctl restart jenkins
 
 ```
 ![image](https://github.com/Vishvanath-Patil/DevSecOps-And-Monitoring-Project/assets/130968991/885a0bb7-9c09-4dc3-9e8f-e4001440ab74)
