@@ -42,7 +42,7 @@
 
     - Setup Jenkins User Profile
 
-**Step 3: Install Docker and Run the App Using a Container:**
+**Step 3: Install Docker for Sonarqube installation and Container service:**
 
 - Set up Docker on the EC2 instance:
     
