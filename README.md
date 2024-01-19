@@ -1,6 +1,6 @@
 
 
-# Deploy Three-Tier-Application Using Jenkins, EKS (ClouFormation), ECR, ArgoCD and Monitoring Stetup (Prometheus, Grafana, Loki and Cloudwatch - Project!
+# Deploy Three-Tier-Application Using Jenkins, EKS (ClouFormation), ECR, ArgoCD and Monitoring Stetup (Prometheus, Grafana, Loki and Cloudwatch) - Project!
 
 ### **Phase 1: Jenkins Setup**
 
