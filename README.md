@@ -125,7 +125,73 @@ Click on Apply and Save
 
 We will install a sonar scanner in the tools.
 
-Create a Jenkins webhook
+
+
+Certainly, here are the instructions without step numbers:
+
+**Install Dependency-Check and Docker Tools in Jenkins**
+
+**Install Dependency-Check Plugin:**
+
+- Go to "Dashboard" in your Jenkins web interface.
+- Navigate to "Manage Jenkins" → "Manage Plugins."
+- Click on the "Available" tab and search for "OWASP Dependency-Check."
+- Check the checkbox for "OWASP Dependency-Check" and click on the "Install without restart" button.
+
+**Configure Dependency-Check Tool:**
+
+- After installing the Dependency-Check plugin, you need to configure the tool.
+- Go to "Dashboard" → "Manage Jenkins" → "Global Tool Configuration."
+- Find the section for "OWASP Dependency-Check."
+- Add the tool's name, e.g., "DP-Check."
+- Save your settings.
+
+**Install Docker Tools and Docker Plugins:**
+
+- Go to "Dashboard" in your Jenkins web interface.
+- Navigate to "Manage Jenkins" → "Manage Plugins."
+- Click on the "Available" tab and search for "Docker."
+- Check the following Docker-related plugins:
+  - Docker
+  - Docker Commons
+  - Docker Pipeline
+  - Docker API
+  - docker-build-step
+  - Amazon ECR
+  - Amazon EKS
+- Click on the "Install without restart" button to install these plugins.
+
+**Add ECR credentials for your AWS credentials using the following steps:**
+- Open the Jenkins web interface.
+
+- Navigate to "Manage Jenkins" > "Manage Credentials."
+
+- In the Credentials page, click on "(global)" or a specific domain where you want to store your AWS credentials.
+
+- Click on "Add Credentials" on the left side.
+
+- Choose the kind of credentials to add. In this case, select "Secret text" for AWS Access Key ID and Secret Access Key.
+
+Fill in the necessary information:
+
+- Secret: Your AWS Access Key ID or Secret Access Key.
+  ID: Provide a unique ID for these credentials. This ID will be used in your Jenkins pipeline script.
+  Description: Optionally, provide a description for better identification.
+  Click on "OK" to save the credentials.
+
+- Now, you can use the ID you provided in the credentialsId field in your Jenkins pipeline script. For example, if you set the ID to aws-ecr-credentials, your pipeline
+
+**Add DockerHub Credentials:**
+
+- To securely handle DockerHub credentials in your Jenkins pipeline, follow these steps:
+  - Go to "Dashboard" → "Manage Jenkins" → "Manage Credentials."
+  - Click on "System" and then "Global credentials (unrestricted)."
+  - Click on "Add Credentials" on the left side.
+  - Choose "Secret text" as the kind of credentials.
+  - Enter your DockerHub credentials (Username and Password) and give the credentials an ID (e.g., "docker").
+  - Click "OK" to save your DockerHub credentials.
+
+Now, you have installed the Dependency-Check plugin, configured the tool, and added Docker-related plugins along with your DockerHub credentials in Jenkins. You can now proceed with configuring your Jenkins pipeline to include these tools and credentials in your CI/CD process.
 
 1. **Configure CI/CD Pipeline in Jenkins for frontend:**
 - Create a CI/CD pipeline in Jenkins to automate your application deployment.
@@ -232,151 +298,6 @@ pipeline{
         }
      }
   }
-```
-
-Certainly, here are the instructions without step numbers:
-
-**Install Dependency-Check and Docker Tools in Jenkins**
-
-**Install Dependency-Check Plugin:**
-
-- Go to "Dashboard" in your Jenkins web interface.
-- Navigate to "Manage Jenkins" → "Manage Plugins."
-- Click on the "Available" tab and search for "OWASP Dependency-Check."
-- Check the checkbox for "OWASP Dependency-Check" and click on the "Install without restart" button.
-
-**Configure Dependency-Check Tool:**
-
-- After installing the Dependency-Check plugin, you need to configure the tool.
-- Go to "Dashboard" → "Manage Jenkins" → "Global Tool Configuration."
-- Find the section for "OWASP Dependency-Check."
-- Add the tool's name, e.g., "DP-Check."
-- Save your settings.
-
-**Install Docker Tools and Docker Plugins:**
-
-- Go to "Dashboard" in your Jenkins web interface.
-- Navigate to "Manage Jenkins" → "Manage Plugins."
-- Click on the "Available" tab and search for "Docker."
-- Check the following Docker-related plugins:
-  - Docker
-  - Docker Commons
-  - Docker Pipeline
-  - Docker API
-  - docker-build-step
-  - Amazon ECR
-  - Amazon EKS
-- Click on the "Install without restart" button to install these plugins.
-
-**Add ECR credentials for your AWS credentials using the following steps:**
-- Open the Jenkins web interface.
-
-- Navigate to "Manage Jenkins" > "Manage Credentials."
-
-- In the Credentials page, click on "(global)" or a specific domain where you want to store your AWS credentials.
-
-- Click on "Add Credentials" on the left side.
-
-- Choose the kind of credentials to add. In this case, select "Secret text" for AWS Access Key ID and Secret Access Key.
-
-Fill in the necessary information:
-
-- Secret: Your AWS Access Key ID or Secret Access Key.
-  ID: Provide a unique ID for these credentials. This ID will be used in your Jenkins pipeline script.
-  Description: Optionally, provide a description for better identification.
-  Click on "OK" to save the credentials.
-
-- Now, you can use the ID you provided in the credentialsId field in your Jenkins pipeline script. For example, if you set the ID to aws-ecr-credentials, your pipeline
-
-**Add DockerHub Credentials:**
-
-- To securely handle DockerHub credentials in your Jenkins pipeline, follow these steps:
-  - Go to "Dashboard" → "Manage Jenkins" → "Manage Credentials."
-  - Click on "System" and then "Global credentials (unrestricted)."
-  - Click on "Add Credentials" on the left side.
-  - Choose "Secret text" as the kind of credentials.
-  - Enter your DockerHub credentials (Username and Password) and give the credentials an ID (e.g., "docker").
-  - Click "OK" to save your DockerHub credentials.
-
-Now, you have installed the Dependency-Check plugin, configured the tool, and added Docker-related plugins along with your DockerHub credentials in Jenkins. You can now proceed with configuring your Jenkins pipeline to include these tools and credentials in your CI/CD process.
-
-```groovy
-
-pipeline{
-    agent any
-    tools{
-        jdk 'jdk17'
-        nodejs 'node16'
-    }
-    environment {
-        SCANNER_HOME=tool 'sonar-scanner'
-    }
-    stages {
-        stage('clean workspace'){
-            steps{
-                cleanWs()
-            }
-        }
-        stage('Checkout from Git'){
-            steps{
-                git branch: 'main', url: 'https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project.git'
-            }
-        }
-        stage("Sonarqube Analysis "){
-            steps{
-                withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
-                    -Dsonar.projectKey=Netflix '''
-                }
-            }
-        }
-        stage("quality gate"){
-           steps {
-                script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token' 
-                }
-            } 
-        }
-        stage('Install Dependencies') {
-            steps {
-                sh "npm install"
-            }
-        }
-        stage('OWASP FS SCAN') {
-            steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            }
-        }
-        stage('TRIVY FS SCAN') {
-            steps {
-                sh "trivy fs . > trivyfs.txt"
-            }
-        }
-        stage("Docker Build & Push"){
-            steps{
-                script{
-                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
-                       sh "docker build --build-arg TMDB_V3_API_KEY=<yourapikey> -t netflix ."
-                       sh "docker tag netflix vishwa3877/netflix:latest "
-                       sh "docker push vishwa3877/netflix:latest "
-                    }
-                }
-            }
-        }
-        stage("TRIVY"){
-            steps{
-                sh "trivy image vishwa3877/netflix:latest > trivyimage.txt" 
-            }
-        }
-        stage('Deploy to container'){
-            steps{
-                sh 'docker run -d --name netflix -p 8081:80 vishwa3877/netflix:latest'
-            }
-        }
-    }
-}
-
 ```
 ![image](https://github.com/Vishvanath-Patil/DevSecOps-And-Monitoring-Project/assets/130968991/885a0bb7-9c09-4dc3-9e8f-e4001440ab74)
 
