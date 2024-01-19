@@ -1,3 +1,4 @@
+
 stage('Deploy to EKS Cluster') {
     steps {
         script {
@@ -16,7 +17,10 @@ stage('Deploy to EKS Cluster') {
     }
 }
 
-## *Explanation:*
+
+
+
+## Explanation:
 
 Set Kubernetes Cluster Context:
 
