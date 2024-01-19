@@ -202,6 +202,8 @@ Certainly, here are the instructions without step numbers:
   - Docker Pipeline
   - Docker API
   - docker-build-step
+  - Amazon ECR
+  - Amazon EKS
 - Click on the "Install without restart" button to install these plugins.
 
 **Add DockerHub Credentials:**
