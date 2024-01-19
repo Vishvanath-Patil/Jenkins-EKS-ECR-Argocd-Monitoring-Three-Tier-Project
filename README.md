@@ -305,7 +305,7 @@ sudo systemctl restart jenkins
 
 
 
-### **Phase 1: Baston Host, EKS Cluster & ECR Setup**
+# **Phase 3: Baston Host, EKS Cluster & ECR Setup**
 
 ## Prerequisites
 - Basic knowledge of Docker, and AWS services.
