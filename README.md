@@ -41,15 +41,15 @@
 
 # Deploy Three-Tier-Application Using Jenkins, EKS (ClouFormation), ECR, ArgoCD and Monitoring Stetup (Prometheus, Grafana, Loki and Cloudwatch) - Project!
 
-### **Phase 1: Jenkins Setup**
+# Phase 1: Jenkins Setup
 
-**Step 1: Launch EC2 (Ubuntu 22.04):**
+## Step 1: Launch EC2 (Ubuntu 22.04):
 
 - Provision an EC2 instance on AWS with Ubuntu 22.04.
 - Connect to the instance using SSH.
 
 
-**Step 2: CI/CD Setup**
+## Step 2: CI/CD Setup
 
 1. **Install Jenkins for Automation:**
     - Install Jenkins on the EC2 instance to automate deployment:
@@ -81,7 +81,7 @@
 
     - Setup Jenkins User Profile
 
-**Step 3: Install Docker for Sonarqube installation and Container service:**
+## Step 3: Install Docker for Sonarqube installation and Container service:
 
 - Set up Docker on the EC2 instance:
     
@@ -97,9 +97,9 @@
     sudo systemctl restart jenkins
     ```
     
-**Phase 2: Security**
+# Phase 2: Security
 
-1. **Install SonarQube and Trivy:**
+1. ## Install SonarQube and Trivy:
     - Install SonarQube and Trivy on the EC2 instance to scan for vulnerabilities.
         
         sonarqube
@@ -125,11 +125,11 @@
         ```
         trivy image <imageid>
         ```
-2. **Integrate SonarQube and Configure:**
+2. ## Integrate SonarQube and Configure:
     - Integrate SonarQube with your CI/CD pipeline.
     - Configure SonarQube to analyze code for quality and security issues.
 
-2. **Install Necessary Plugins in Jenkins:**
+2. ## Install Necessary Plugins in Jenkins:
 
 Goto Manage Jenkins →Plugins → Available Plugins →
 
@@ -168,16 +168,16 @@ We will install a sonar scanner in the tools.
 
 Certainly, here are the instructions without step numbers:
 
-**Install Dependency-Check and Docker Tools in Jenkins**
+## Install Dependency-Check and Docker Tools in Jenkins
 
-**Install Dependency-Check Plugin:**
+## Install Dependency-Check Plugin:
 
 - Go to "Dashboard" in your Jenkins web interface.
 - Navigate to "Manage Jenkins" → "Manage Plugins."
 - Click on the "Available" tab and search for "OWASP Dependency-Check."
 - Check the checkbox for "OWASP Dependency-Check" and click on the "Install without restart" button.
 
-**Configure Dependency-Check Tool:**
+## Configure Dependency-Check Tool:
 
 - After installing the Dependency-Check plugin, you need to configure the tool.
 - Go to "Dashboard" → "Manage Jenkins" → "Global Tool Configuration."
@@ -185,7 +185,7 @@ Certainly, here are the instructions without step numbers:
 - Add the tool's name, e.g., "DP-Check."
 - Save your settings.
 
-**Install Docker Tools and Docker Plugins:**
+## Install Docker Tools and Docker Plugins:
 
 - Go to "Dashboard" in your Jenkins web interface.
 - Navigate to "Manage Jenkins" → "Manage Plugins."
@@ -200,7 +200,7 @@ Certainly, here are the instructions without step numbers:
   - Amazon EKS
 - Click on the "Install without restart" button to install these plugins.
 
-**Add ECR credentials for your AWS credentials using the following steps:**
+## Add ECR credentials for your AWS credentials using the following steps:
 - Open the Jenkins web interface.
 
 - Navigate to "Manage Jenkins" > "Manage Credentials."
@@ -220,7 +220,7 @@ Fill in the necessary information:
 
 - Now, you can use the ID you provided in the credentialsId field in your Jenkins pipeline script. For example, if you set the ID to aws-ecr-credentials, your pipeline
 
-**Add DockerHub Credentials:**
+## Add DockerHub Credentials:
 
 - To securely handle DockerHub credentials in your Jenkins pipeline, follow these steps:
   - Go to "Dashboard" → "Manage Jenkins" → "Manage Credentials."
@@ -232,7 +232,7 @@ Fill in the necessary information:
 
 Now, you have installed the Dependency-Check plugin, configured the tool, and added Docker-related plugins along with your DockerHub credentials in Jenkins. You can now proceed with configuring your Jenkins pipeline to include these tools and credentials in your CI/CD process.
 
-1. **Configure CI/CD Pipeline in Jenkins for frontend:**
+1. ## Configure CI/CD Pipeline in Jenkins for frontend:
 - Create a CI/CD pipeline in Jenkins to automate your application deployment.
 
 ```groovy
