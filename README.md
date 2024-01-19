@@ -219,10 +219,10 @@ pipeline{
             sh "kubectl config use-context nsws-prod-cluster"
 
             // Set the Kubernetes namespace
-            sh "kubectl create namespace prod --dry-run=client -o yaml | kubectl apply -f -"
+            sh "kubectl create namespace workshop --dry-run=client -o yaml | kubectl apply -f -"
 
             // Deploy the application to the EKS cluster
-            sh "kubectl apply -f path/to/kubernetes/deployment.yaml -n prod"
+            sh "kubectl apply -f k8s_manifests/frontend-deployment.yaml -n workshop"
 
             // Wait for the deployment to be ready
             sh "kubectl rollout status deployment/workshop-three-tier-frontend -n prod"
