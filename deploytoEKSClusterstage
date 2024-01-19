@@ -1,0 +1,17 @@
+stage('Deploy to EKS Cluster') {
+    steps {
+        script {
+            // Set the Kubernetes cluster context
+            sh "kubectl config use-context nsws-prod-cluster"
+
+            // Set the Kubernetes namespace
+            sh "kubectl create namespace prod --dry-run=client -o yaml | kubectl apply -f -"
+
+            // Deploy the application to the EKS cluster
+            sh "kubectl apply -f path/to/kubernetes/deployment.yaml -n prod"
+
+            // Wait for the deployment to be ready
+            sh "kubectl rollout status deployment/workshop-threetier-backend -n prod"
+        }
+    }
+}
