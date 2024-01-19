@@ -15,3 +15,26 @@ stage('Deploy to EKS Cluster') {
         }
     }
 }
+
+## *Explanation:*
+
+Set Kubernetes Cluster Context:
+
+Use the kubectl config use-context command to set the Kubernetes cluster context to nsws-prod-cluster.
+Set Kubernetes Namespace:
+
+Use the kubectl create namespace command to create the prod namespace if it doesn't exist.
+Deploy the Application:
+
+Use the kubectl apply -f command to apply the Kubernetes manifest file for your deployment. Replace path/to/kubernetes/deployment.yaml with the actual path to your Kubernetes deployment manifest.
+Wait for Deployment to be Ready:
+
+Use the kubectl rollout status command to wait for the deployment to be ready in the prod namespace.
+Make sure to replace path/to/kubernetes/deployment.yaml with the actual path to your Kubernetes deployment manifest, and adjust any other deployment configurations as needed.
+
+This assumes you have a Kubernetes deployment manifest that defines your application deployment. Adjustments may be needed based on your specific deployment setup and requirements.
+
+
+
+
+
