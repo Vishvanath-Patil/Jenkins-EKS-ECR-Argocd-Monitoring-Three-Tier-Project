@@ -451,7 +451,7 @@ kubectl get deployment -n kube-system aws-load-balancer-controller
 kubectl apply -f full_stack_lb.yaml
 ```
 
-### Step 13 Configure AWS Load Balancer Controller DNS with GoDaddy Domain Name
+### Step 13: Configure AWS Load Balancer Controller DNS with GoDaddy Domain Name
 - Step 1: Obtain the Public DNS of AWS Load Balancer
   Navigate to the AWS Management Console.
   Open the Amazon EC2 console and choose "Load Balancers" from the navigation pane.
@@ -490,6 +490,7 @@ By following these steps, you'll configure your GoDaddy domain to point to the A
 
 # Phase 4: ArgoCD Setup
 
+# Phase 5: Monitoring SetUp
 
 ### Cleanup
 - To delete the EKS cluster:
