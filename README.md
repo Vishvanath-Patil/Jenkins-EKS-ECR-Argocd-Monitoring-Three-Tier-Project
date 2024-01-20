@@ -210,11 +210,15 @@ Create the token
 Goto Jenkins Dashboard → Manage Jenkins → Credentials → Add Secret Text. It should look like this
 ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/e9f2deb4-3f9c-435f-9cd8-99fc1ad601ab)
 
-
-
 After adding sonar token
 
 Click on Apply and Save
+## Sonar Server Configuration on Jenkins 
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/db57b948-f775-4b2f-949e-b1f55bb418e9)
+
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/dd749629-2f51-4a51-bc12-c8a2e05a6ef8)
+
+
 
 **The Configure System option** is used in Jenkins to configure different server
 
