@@ -50,25 +50,17 @@ pipeline{
             }
         }
         stage("Docker Build & Push") {
-    steps {
-        script {
-            // Docker login
-            withDockerRegistry(credentialsId: 'docker', toolName: 'docker') { 
-                // Change to the frontend directory
-                dir("/frontend") {
-                    // Build Docker image
-                    sh "docker build -t vishwa3877/frontend ."
-
-                    // Tag Docker image
-                    sh "docker tag vishwa3877/frontend:latest"
-
-                    // Push Docker image to the registry
-                    sh "docker push vishwa3877/frontend:latest"
+            steps {
+                script {
+                    // Assuming your Dockerfile is inside the frontend directory
+                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
+                        sh "docker build -t vishwa3877/frontend:latest frontend"
+                        sh "docker push vishwa3877/frontend:latest"
+                    }
                 }
             }
         }
-    }
-}
+
         stage("TRIVY"){
             steps{
                 sh "trivy image vishwa3877/frontend:latest > trivyimage.txt" 
