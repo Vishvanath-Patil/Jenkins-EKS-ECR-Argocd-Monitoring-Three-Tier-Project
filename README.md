@@ -75,11 +75,11 @@
     sudo systemctl enable jenkins
     ```
   ## Verify Java Installation
-        ```
+        ```bash
         java --version
         ```
   ## Verify Jenkins Installation
-        ```
+        ```bash
         sudo systemctl status jenkins
         ```
   ## Should show like this 
@@ -114,7 +114,18 @@
     sudo usermod -aG docker jenkins
     sudo systemctl restart jenkins
     ```
-    
+### Verify Docker Intallation
+
+ ```
+ docker ps
+ docker images
+ sudo systemctl status docker
+ ```
+### Output should show like this
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/6f0012a5-f173-4f86-a9a5-d9bda679c210)
+ 
+
+  
 # Phase 2: Security
 
 1. ## Install SonarQube and Trivy:
