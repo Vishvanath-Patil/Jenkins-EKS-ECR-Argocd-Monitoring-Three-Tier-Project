@@ -225,8 +225,12 @@ Click on Apply and Save
 **Global Tool Configuration** is used to configure different tools that we install using Plugins
 
 We will install a sonar scanner in the tools.
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/a2bbfcfa-244c-4601-ba3b-c1b4b084f2fd)
 
+Create *todo* Project on Sonarqube for **Sonarqube Analysis** Stage Integration 
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/3cdacca9-763f-44be-b470-29219e5f920a)
 
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/178d1175-30bc-4882-9b3e-487af7f5e7bf)
 
 Certainly, here are the instructions without step numbers:
 
