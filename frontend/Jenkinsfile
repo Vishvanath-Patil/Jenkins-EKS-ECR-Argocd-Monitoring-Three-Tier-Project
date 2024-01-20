@@ -55,7 +55,7 @@ pipeline{
             // Docker login
             withDockerRegistry(credentialsId: 'docker', toolName: 'docker') { 
                 // Change to the frontend directory
-                dir("Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/frontend") {
+                dir("/frontend") {
                     // Build Docker image
                     sh "docker build -t vishwa3877/frontend ."
 
