@@ -465,6 +465,16 @@ sudo apt-get update
 sudo apt install docker.io
 docker ps
 sudo chown $USER /var/run/docker.sock
+sudo usermod -aG docker $USER
+sudo systemctl status docker
+#If the Docker daemon is not running, start it using
+sudo systemctl start docker
+#Check Docker Socket Permissions:
+#Ensure that the permissions on the Docker socket file (/var/run/docker.sock) allow the user or the docker group to access it. You can check the permissions with:
+ls -l /var/run/docker.sock
+#It should have read and write permissions for the user or be owned by the docker group.
+sudo systemctl restart docker #Restart docker
+
 ```
 
 ### Step 6: Install kubectl
