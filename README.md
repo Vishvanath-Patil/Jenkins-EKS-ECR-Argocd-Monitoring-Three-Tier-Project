@@ -482,7 +482,7 @@ Note: This step associates your domain (or subdomain) with the AWS Load Balancer
 
 Note: It may take a while for the DNS changes to propagate completely.
 
-- Additional Considerations
+#### Additional Considerations
 Ensure that the security groups associated with your AWS Load Balancer allow traffic on the necessary ports.
 Verify the SSL/TLS configuration if your application uses HTTPS.
 Monitor AWS Route 53 or GoDaddy DNS settings for any issues or errors.
