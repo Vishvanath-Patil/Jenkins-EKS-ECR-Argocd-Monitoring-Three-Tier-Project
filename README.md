@@ -242,6 +242,8 @@ Certainly, here are the instructions without step numbers:
 - Navigate to "Manage Jenkins" → "Manage Plugins."
 - Click on the "Available" tab and search for "OWASP Dependency-Check."
 - Check the checkbox for "OWASP Dependency-Check" and click on the "Install without restart" button.
+  ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/42d806ff-bf0d-4655-9f2c-be6bb4bc51d6)
+
 
 ## Configure Dependency-Check Tool:
 
@@ -250,6 +252,8 @@ Certainly, here are the instructions without step numbers:
 - Find the section for "OWASP Dependency-Check."
 - Add the tool's name, e.g., "DP-Check."
 - Save your settings.
+  ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/77205dc0-22f5-4de0-95b4-868a7c907254)
+
 
 ## Install Docker Tools and Docker Plugins:
 
@@ -265,6 +269,32 @@ Certainly, here are the instructions without step numbers:
   - Amazon ECR
   - Amazon EKS
 - Click on the "Install without restart" button to install these plugins.
+  ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/ad3d7df0-173b-4979-8536-a7f3cb0efb36)
+
+  ## Configure Docker Tool:
+
+- After installing the Dependency-Check plugin, you need to configure the tool.
+- Go to "Dashboard" → "Manage Jenkins" → "Global Tool Configuration."
+- Find the section for "Docker"
+- Add the tool's name, e.g., "docker"
+- Save your settings.
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/f61e6891-b57c-4eb4-a214-94757f07be92)
+
+Create Security Credrentials for jenkins 
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/77bf1061-df0b-4803-bc16-fa6f846a58b0)
+
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/f6a94ec9-9ba6-4024-994c-e92c9a751217)
+
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/3a3940a1-fb37-419a-b2fe-db065efa9553)
+
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/080b1644-2fbc-4e50-9f66-10917dc304a8)
+
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/971356e1-6841-4849-adb3-14a2197170ec)
+
+
+
+
+
 
 ## Add ECR credentials for your AWS credentials using the following steps:
 - Open the Jenkins web interface.
@@ -286,6 +316,9 @@ Fill in the necessary information:
 
 - Now, you can use the ID you provided in the credentialsId field in your Jenkins pipeline script. For example, if you set the ID to aws-ecr-credentials, your pipeline
 
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/00ae68fb-a03e-46ac-a2f8-5342472d107c)
+
+
 ## Add DockerHub Credentials:
 
 - To securely handle DockerHub credentials in your Jenkins pipeline, follow these steps:
@@ -295,6 +328,8 @@ Fill in the necessary information:
   - Choose "Secret text" as the kind of credentials.
   - Enter your DockerHub credentials (Username and Password) and give the credentials an ID (e.g., "docker").
   - Click "OK" to save your DockerHub credentials.
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/e0afc152-4ae9-4093-bb46-6813493d09fe)
+
 
 Now, you have installed the Dependency-Check plugin, configured the tool, and added Docker-related plugins along with your DockerHub credentials in Jenkins. You can now proceed with configuring your Jenkins pipeline to include these tools and credentials in your CI/CD process.
 
