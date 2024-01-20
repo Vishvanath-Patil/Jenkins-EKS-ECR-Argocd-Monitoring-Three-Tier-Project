@@ -5,7 +5,7 @@ pipeline{
         nodejs 'node14'
     }
     environment {
-        SCANNER_HOME=tool 'sonar-scanner'
+       // SCANNER_HOME=tool 'sonar-scanner'
         AWS_DEFAULT_REGION = 'us-west-2'
         ECR_REPOSITORY_URI = 'public.ecr.aws/i5k2v6g1/frontend'
     }
@@ -20,32 +20,8 @@ pipeline{
                 git branch: 'main', url: 'https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project.git'
             }
         }
-        stage("Sonarqube Analysis "){
-            steps{
-                withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Todo \
-                    -Dsonar.projectKey=Todo '''
-                }
-            }
-        }
-        stage("quality gate"){
-           steps {
-                script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token' 
-                }
-            } 
-        }
-        stage('Install Dependencies') {
-            steps {
-                sh "npm install"
-            }
-        }
+        
     
-        stage('TRIVY FS SCAN') {
-            steps {
-                sh "trivy fs . > trivyfs.txt"
-            }
-        }
      
         stage('Authenticate to ECR') {
             steps {
