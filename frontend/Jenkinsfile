@@ -1,3 +1,4 @@
+      
 pipeline{
     agent any
     tools{
@@ -21,19 +22,18 @@ pipeline{
             }
         }
         
-    
-     
         stage('Authenticate to ECR') {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: 'aws-ecr-public', variable: 'AWS_CREDENTIALS')]) {
-                        def loginCommand = "aws ecr-public get-login-password --region ${AWS_DEFAULT_REGION}"
-                        def dockerLoginCommand = "${loginCommand} | docker login --username AWS --password-stdin ${ECR_REPOSITORY_URI}"
-                        sh dockerLoginCommand
-                    }
-                }
+    steps {
+        script {
+            withCredentials([string(credentialsId: 'aws-ecr-public', variable: 'AWS_CREDENTIALS')]) {
+                def loginCommand = "aws ecr-public get-login-password --region us-west-2"
+                def dockerLoginCommand = "${loginCommand} | docker login --username AWS --password-stdin public.ecr.aws/i5k2v6g1/frontend"
+                sh dockerLoginCommand
             }
         }
+    }
+}
+
 
         stage('Build Docker Image') {
             steps {
@@ -61,3 +61,4 @@ pipeline{
     }
 }
       
+    
