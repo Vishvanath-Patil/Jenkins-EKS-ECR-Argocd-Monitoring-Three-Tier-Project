@@ -366,8 +366,8 @@ pipeline{
         stage("Sonarqube Analysis "){
             steps{
                 withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
-                    -Dsonar.projectKey=Netflix '''
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Todo \
+                    -Dsonar.projectKey=Todo '''
                 }
             }
         }
@@ -394,56 +394,30 @@ pipeline{
                 sh "trivy fs . > trivyfs.txt"
             }
         }
-        stage("Docker Build & Push to ECR") {
-    steps {
-        script {
-            // Retrieve authentication token and authenticate Docker client to ECR
-            withCredentials([usernamePassword(credentialsId: 'aws-ecr-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                def ecrLogin = sh(script: "aws ecr-public get-login-password --region us-east-1", returnStatus: true).trim()
-                if (ecrLogin == 0) {
-                    sh "echo \${AWS_SECRET_ACCESS_KEY} | docker login --username AWS --password-stdin public.ecr.aws/i5k2v6g1"
-                } else {
-                    error "Failed to authenticate Docker client to ECR"
+        stage("Docker Build & Push") {
+            steps {
+                script {
+                    // Assuming your Dockerfile is inside the frontend directory
+                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
+                        sh "docker build -t vishwa3877/frontend:latest frontend"
+                        sh "docker push vishwa3877/frontend:latest"
+                    }
                 }
             }
-
-            // Build Docker image
-            sh "docker build -t workshop/three-tier-backend ."
-
-            // Tag Docker image
-            sh "docker tag workshop/three-tier-backend:latest public.ecr.aws/i5k2v6g1/workshop/three-tier-backend:latest"
-
-            // Push Docker image to ECR
-            sh "docker push public.ecr.aws/i5k2v6g1/workshop/three-tier-backend:latest"
         }
-    }
-}
 
         stage("TRIVY"){
             steps{
-                sh "push public.ecr.aws/i5k2v6g1/workshop/three-tier-backend:latest > trivyimage.txt" 
+                sh "trivy image vishwa3877/frontend:latest > trivyimage.txt" 
             }
         }
-        stage('Deploy to EKS Cluster') {
-    steps {
-        script {
-            // Set the Kubernetes cluster context
-            sh "kubectl config use-context nsws-prod-cluster"
-
-            // Set the Kubernetes namespace
-            sh "kubectl create namespace workshop --dry-run=client -o yaml | kubectl apply -f -"
-
-            // Deploy the application to the EKS cluster
-            sh "kubectl apply -f k8s_manifests/frontend-deployment.yaml -n workshop"
-
-            // Wait for the deployment to be ready
-            sh "kubectl rollout status deployment/workshop-three-tier-frontend -n prod"
-              }
+        stage('Deploy to container'){
+            steps{
+                sh 'docker run -d --name frontend -p 8081:80 vishwa3877/frontend:latest'
             }
-          }
         }
-     }
-  }
+    }
+}
 ```
 ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/8aeaae0d-7474-4ead-a68a-d74a5e70f155)
 
