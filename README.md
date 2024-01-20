@@ -423,6 +423,8 @@ pipeline{
 
 ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/74f5855c-1171-4d5d-8ca7-37a94c8631d9)
 
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/a8075e0c-b0fc-450c-ac6a-2a6758815f3c)
+
 
 # Phase 3: Baston Host, EKS Cluster & ECR Setup
 
