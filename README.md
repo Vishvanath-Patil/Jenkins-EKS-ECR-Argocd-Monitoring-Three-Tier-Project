@@ -185,16 +185,32 @@ Install below plugins
 
 4 Email Extension Plugin
 
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/e45e9502-ab04-4502-8956-3237c61f815f)
+
+
 ### **Configure Java and Nodejs in Global Tool Configuration**
 
 Goto Manage Jenkins → Tools → Install JDK(17) and NodeJs(16)→ Click on Apply and Save
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/0f16f77f-6973-4bd0-984b-4c9f543dc108)
+
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/ccca2ed1-763f-4189-9056-479b98310dd0)
+
 
 
 ### SonarQube
 
 Create the token
 
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/d6bdb429-0a11-4900-aa4a-60364f6b15cd)
+
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/e350852b-c3e3-4c8e-bfa5-08259e59bceb)
+
+
+
 Goto Jenkins Dashboard → Manage Jenkins → Credentials → Add Secret Text. It should look like this
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/e9f2deb4-3f9c-435f-9cd8-99fc1ad601ab)
+
+
 
 After adding sonar token
 
