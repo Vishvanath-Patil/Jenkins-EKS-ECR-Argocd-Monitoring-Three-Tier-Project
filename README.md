@@ -74,12 +74,30 @@
     sudo systemctl start jenkins
     sudo systemctl enable jenkins
     ```
-    
+  ## Verify Java Installation
+        ```
+        java --version
+        ```
+  ## Verify Jenkins Installation
+        ```
+        sudo systemctl status jenkins
+        ```
+  ## Should show like this 
+  ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/5164e24a-fe3a-4feb-a76c-bc516c19f4bb)
+
     - Access Jenkins in a web browser using the public IP of your EC2 instance.
         
         publicIp:8080
+  ## Jenkins Server Console look like this 
+  ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/cbe15aec-d50e-491c-933b-73166c2d2d8b)
 
     - Setup Jenkins User Profile
+### Run Command to get Administration Password
+ ```
+  sudo cat /var/lib/jenkins/secrets/initialAdminPassword      
+ ```
+### Output would be like this 
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/fc14809a-6380-4c06-b0ae-206e2bc2459b)
 
 ## Step 3: Install Docker for Sonarqube installation and Container service:
 
