@@ -342,7 +342,7 @@ pipeline{
 
 
 
-# **Phase 3: Baston Host, EKS Cluster & ECR Setup**
+# Phase 3: Baston Host, EKS Cluster & ECR Setup
 
 ## Prerequisites
 - Basic knowledge of Docker, and AWS services.
@@ -450,6 +450,46 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n ku
 kubectl get deployment -n kube-system aws-load-balancer-controller
 kubectl apply -f full_stack_lb.yaml
 ```
+
+### Step 13 Configure AWS Load Balancer Controller DNS with GoDaddy Domain Name
+- Step 1: Obtain the Public DNS of AWS Load Balancer
+  Navigate to the AWS Management Console.
+  Open the Amazon EC2 console and choose "Load Balancers" from the navigation pane.
+  Select your load balancer and note down its Public DNS.
+- Step 2: Access GoDaddy Account
+  Log in to your GoDaddy account.
+- Step 3: Access DNS Management
+  In your GoDaddy account, go to the "DNS Management" or "Domain Management" section.
+- Step 4: Add a CNAME Record
+  Add a new CNAME record to map your domain to the AWS Load Balancer.
+
+Record Type: CNAME
+Host: Enter the subdomain or leave it blank for the root domain.
+Points to: Enter the Public DNS of your AWS Load Balancer.
+TTL (Time to Live): Set the desired TTL value.
+Example:
+
+Host: www
+Points to: Your AWS Load Balancer Public DNS
+Note: This step associates your domain (or subdomain) with the AWS Load Balancer.
+
+- Step 5: Save Changes
+  Save the changes made to the DNS records.
+- Step 6: Wait for DNS Propagation
+  DNS changes may take some time to propagate. Wait for the changes to take effect.
+- Step 7: Test the Configuration
+  Open a web browser and navigate to your domain or subdomain (e.g., http://www.yourdomain.com).
+
+Note: It may take a while for the DNS changes to propagate completely.
+
+- Additional Considerations
+Ensure that the security groups associated with your AWS Load Balancer allow traffic on the necessary ports.
+Verify the SSL/TLS configuration if your application uses HTTPS.
+Monitor AWS Route 53 or GoDaddy DNS settings for any issues or errors.
+By following these steps, you'll configure your GoDaddy domain to point to the AWS Load Balancer Controller. Adjust the instructions based on your specific domain configuration and requirements.
+
+# Phase 4: ArgoCD Setup
+
 
 ### Cleanup
 - To delete the EKS cluster:
