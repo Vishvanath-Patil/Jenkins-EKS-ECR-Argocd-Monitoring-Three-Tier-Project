@@ -49,17 +49,26 @@ pipeline{
                 sh "trivy fs . > trivyfs.txt"
             }
         }
-        stage("Docker Build & Push"){
-            steps{
-                script{
-                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
-                       sh "docker build -t frontend Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/frontend/Dockerfile"
-                       sh "docker tag frontend vishwa3877/frontend:latest "
-                       sh "docker push vishwa3877/frontend:latest "
-                    }
+        stage("Docker Build & Push") {
+    steps {
+        script {
+            // Docker login
+            withDockerRegistry(credentialsId: 'docker', toolName: 'docker') { 
+                // Change to the frontend directory
+                dir("Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/frontend") {
+                    // Build Docker image
+                    sh "docker build -t vishwa3877/frontend ."
+
+                    // Tag Docker image
+                    sh "docker tag vishwa3877/frontend:latest"
+
+                    // Push Docker image to the registry
+                    sh "docker push vishwa3877/frontend:latest"
                 }
             }
         }
+    }
+}
         stage("TRIVY"){
             steps{
                 sh "trivy image vishwa3877/frontend:latest > trivyimage.txt" 
