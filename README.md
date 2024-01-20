@@ -99,6 +99,14 @@
 ### Output would be like this 
 ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/fc14809a-6380-4c06-b0ae-206e2bc2459b)
 
+- Install Suggested plugins
+  ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/775dea30-03d0-40c7-882b-6b3548a8bcd6)
+- Create Profile
+- ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/dd0357fe-a005-41d0-9139-8764342a3520)
+
+  
+
+
 ## Step 3: Install Docker for Sonarqube installation and Container service:
 
 - Set up Docker on the EC2 instance:
