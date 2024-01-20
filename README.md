@@ -463,14 +463,14 @@ kubectl apply -f full_stack_lb.yaml
 - Step 4: Add a CNAME Record
   Add a new CNAME record to map your domain to the AWS Load Balancer.
 
-Record Type: CNAME
-Host: Enter the subdomain or leave it blank for the root domain.
-Points to: Enter the Public DNS of your AWS Load Balancer.
-TTL (Time to Live): Set the desired TTL value.
-Example:
+  - Record Type: CNAME
+  - Host: Enter the subdomain or leave it blank for the root domain.
+  - Points to: Enter the Public DNS of your AWS Load Balancer.
+  - TTL (Time to Live): Set the desired TTL value.
 
-Host: www
-Points to: Your AWS Load Balancer Public DNS
+     #### Example:
+     - Host: www
+     - Points to: Your AWS Load Balancer Public DNS
 Note: This step associates your domain (or subdomain) with the AWS Load Balancer.
 
 - Step 5: Save Changes
