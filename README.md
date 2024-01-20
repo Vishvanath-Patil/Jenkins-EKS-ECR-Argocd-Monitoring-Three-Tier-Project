@@ -335,6 +335,12 @@ Now, you have installed the Dependency-Check plugin, configured the tool, and ad
 
 1. ## Configure CI/CD Pipeline in Jenkins for frontend:
 - Create a CI/CD pipeline in Jenkins to automate your application deployment.
+- ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/4455cc09-f959-48fb-b6ba-54ed9d4ee381)
+
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/9814b926-3bf7-43c1-a081-6b363b53a29f)
+
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/2daabe0e-69ce-4450-b8d8-14f4fc4d3cea)
+
 
 ```groovy
 pipeline{
@@ -439,8 +445,9 @@ pipeline{
      }
   }
 ```
-![image](https://github.com/Vishvanath-Patil/DevSecOps-And-Monitoring-Project/assets/130968991/885a0bb7-9c09-4dc3-9e8f-e4001440ab74)
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/8aeaae0d-7474-4ead-a68a-d74a5e70f155)
 
+![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/74f5855c-1171-4d5d-8ca7-37a94c8631d9)
 
 
 # Phase 3: Baston Host, EKS Cluster & ECR Setup
