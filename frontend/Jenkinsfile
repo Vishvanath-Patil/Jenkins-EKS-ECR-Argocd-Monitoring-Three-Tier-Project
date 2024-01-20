@@ -6,6 +6,8 @@ pipeline{
     }
     environment {
         SCANNER_HOME=tool 'sonar-scanner'
+        AWS_DEFAULT_REGION = 'us-west-2'
+        ECR_REPOSITORY_URI = 'public.ecr.aws/i5k2v6g1/frontend'
     }
     stages {
         stage('clean workspace'){
@@ -38,34 +40,13 @@ pipeline{
                 sh "npm install"
             }
         }
-    //    stage('OWASP FS SCAN') {
-      //      steps {
-      //          dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
-         //       dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-         //   }
-     //   }
+    
         stage('TRIVY FS SCAN') {
             steps {
                 sh "trivy fs . > trivyfs.txt"
             }
         }
-     //   stage("Docker Build & Push") {
-      //      steps {
-       //         script {
-                    // Assuming your Dockerfile is inside the frontend directory
-       //             withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
-       //                 sh "docker build -t vishwa3877/frontend:latest frontend"
-        //                sh "docker push vishwa3877/frontend:latest"
-        //            }
-          //      }
-          //  }
-       // }
-        environment {
-        AWS_DEFAULT_REGION = 'us-west-2'
-        ECR_REPOSITORY_URI = 'public.ecr.aws/i5k2v6g1/frontend'
-    }
-
-    stages {
+     
         stage('Authenticate to ECR') {
             steps {
                 script {
@@ -102,7 +83,5 @@ pipeline{
             }
         }
     }
-
-      
-    }
 }
+      
