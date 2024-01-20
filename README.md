@@ -144,11 +144,15 @@
         ```
         docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
         ```
-        
+        ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/7934b786-3ec1-442c-aa40-787630fadf0d)
+
         
         To access: 
         
         publicIP:9000 (by default username & password is admin)
+        ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/e0e0fea5-1fe1-4378-b13e-fe69926dcaf9)
+        ![image](https://github.com/Vishvanath-Patil/Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project/assets/130968991/f95fb295-fec1-45c0-a3fa-f6643edc694a)
+
         
         To install Trivy:
         ```
@@ -163,7 +167,7 @@
         ```
         trivy image <imageid>
         ```
-2. ## Integrate SonarQube and Configure:
+3. ## Integrate SonarQube and Configure:
     - Integrate SonarQube with your CI/CD pipeline.
     - Configure SonarQube to analyze code for quality and security issues.
 
