@@ -68,7 +68,7 @@ pipeline{
         }
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name frontend -p 8081:80 vishwa3877/backend:latest'
+                sh 'docker run -d --name backend -p 8081:80 vishwa3877/backend:latest'
             }
         }
     }
