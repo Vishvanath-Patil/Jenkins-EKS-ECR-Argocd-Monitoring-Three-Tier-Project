@@ -417,8 +417,8 @@ stage("Docker Build & Push"){
                     git config user.email "pvishva93@gmail.com"
                     git config user.name "Vishvanath Patil"
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" Kubernetes/deployment.yml
-                    git add Kubernetes/deployment.yml
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" k8s_manifests/frontend-deployment.yaml
+                    git add k8s_manifests/frontend-deployment.yaml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
                 '''
@@ -429,12 +429,12 @@ stage("Docker Build & Push"){
 }
         stage("TRIVY"){
             steps{
-                sh "trivy image vishwa3877/frontend:latest > trivyimage.txt" 
+                sh "trivy image vishwa3877/frontend:${BUILD_NUMBER} > trivyimage.txt" 
             }
         }
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name frontend -p 8081:80 vishwa3877/frontend:latest'
+                sh 'docker run -d --name frontend -p 8081:80 vishwa3877/frontend:${BUILD_NUMBER}'
             }
         }
     }
