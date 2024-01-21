@@ -399,7 +399,7 @@ stage("Docker Build & Push"){
             steps{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
-                       sh "docker build -t frontend ."
+                       sh "docker build -t frontend frontend"
                        sh "docker tag frontend vishwa3877/frontend:${BUILD_NUMBER}"
                        sh "docker push vishwa3877/frontend:${BUILD_NUMBER}"
                     }
