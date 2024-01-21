@@ -394,18 +394,39 @@ pipeline{
                 sh "trivy fs . > trivyfs.txt"
             }
         }
-        stage("Docker Build & Push") {
-            steps {
-                script {
-                    // Assuming your Dockerfile is inside the frontend directory
-                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
-                        sh "docker build -t vishwa3877/frontend:latest frontend"
-                        sh "docker push vishwa3877/frontend:latest"
+        
+stage("Docker Build & Push"){
+            steps{
+                script{
+                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
+                       sh "docker build -t frontend ."
+                       sh "docker tag frontend vishwa3877/frontend:${BUILD_NUMBER}"
+                       sh "docker push vishwa3877/frontend:${BUILD_NUMBER}"
                     }
                 }
             }
         }
-
+        stage('Update Deployment File') {
+        environment {
+            GIT_REPO_NAME = "Jenkins-EKS-ECR-Argocd-Monitoring-Three-Tier-Project"
+            GIT_USER_NAME = "Vishvanath-Patil"
+        }
+            steps {
+                withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+                sh '''
+                    git config user.email "pvishva93@gmail.com"
+                    git config user.name "Vishvanath Patil"
+                    BUILD_NUMBER=${BUILD_NUMBER}
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" Kubernetes/deployment.yml
+                    git add Kubernetes/deployment.yml
+                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                '''
+            }
+        }
+    }    
+} 
+}
         stage("TRIVY"){
             steps{
                 sh "trivy image vishwa3877/frontend:latest > trivyimage.txt" 
